@@ -8,4 +8,4 @@ import { adapters, services } from "@/infrastructure/driven-adapters/providers";
     controllers: [...controllers]
 })
 
-export default class AppContainer {}
+export class AppContainer {}
