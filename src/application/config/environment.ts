@@ -47,7 +47,7 @@ export const CONFIG_MYSQL = {
 *  Mongo DB
 */
 export const MONGODB_URI = PROD
-    ? process.env.MONGO_PRODUCTION
+    ? process.env.MONGODB_URI
     : process.env.MONGO_DEVELOPMENT
     
 /**
