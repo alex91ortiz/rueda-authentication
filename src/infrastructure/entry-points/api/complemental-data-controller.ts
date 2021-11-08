@@ -1,4 +1,4 @@
-import {Mapping, Adapter, Post, Body, Param} from "@tsclean/core";
+import {Mapping, Inject, Post, Body, Param} from "@tsclean/core";
 import {ComplementalDataServiceImpl} from "@/domain/use-cases/impl/complemental-data-service-impl";
 import { COMPLEMENTAL_DATA_SERVICE } from "@/domain/use-cases/complemental-data-service";
 import { AddUserParams } from "@/domain/models/user";
@@ -7,7 +7,7 @@ import { AddUserParams } from "@/domain/models/user";
 export class ComplementalDataController {
 
     constructor(
-        @Adapter(COMPLEMENTAL_DATA_SERVICE) private readonly complementalDataService: ComplementalDataServiceImpl
+        @Inject(COMPLEMENTAL_DATA_SERVICE) private readonly complementalDataService: ComplementalDataServiceImpl
     ) {
     }
     

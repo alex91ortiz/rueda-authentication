@@ -1,4 +1,4 @@
-import {Mapping, Get, Post, Adapter, Body} from "@tsclean/core";
+import {Mapping, Get, Post, Inject, Body} from "@tsclean/core";
 import {EnableAccountUserServiceImpl} from "@/domain/use-cases/impl/enable-account-user-service-impl";
 import { ENABLE_ACCOUNT_USER_SERVICE } from "@/domain/use-cases/enable-account-user-service";
 import { CONFIRMATION_TOKEN_SERVICE, IConfirmationTokenService } from "@/domain/use-cases/confirmation-token-service";
@@ -8,8 +8,8 @@ import { ConfirmationTokenServiceImpl } from "@/domain/use-cases/impl/confirmati
 export class EnableAccountUserController {
 
     constructor(
-        @Adapter(ENABLE_ACCOUNT_USER_SERVICE) private readonly enableAccountUserService: EnableAccountUserServiceImpl,
-        @Adapter(CONFIRMATION_TOKEN_SERVICE) private readonly confirmationTokenService: ConfirmationTokenServiceImpl
+        @Inject(ENABLE_ACCOUNT_USER_SERVICE) private readonly enableAccountUserService: EnableAccountUserServiceImpl,
+        @Inject(CONFIRMATION_TOKEN_SERVICE) private readonly confirmationTokenService: ConfirmationTokenServiceImpl
     ) {
     }
 

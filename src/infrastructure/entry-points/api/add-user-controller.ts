@@ -1,4 +1,4 @@
-import { Mapping, Get, Post, Body, Adapter, Param } from "@tsclean/core";
+import { Mapping, Get, Post, Body, Inject, Param } from "@tsclean/core";
 import { AddUserServiceImpl } from "@/domain/use-cases/impl/add-user-service-impl";
 import { AddUserParams } from "@/domain/models/user";
 import { ADD_USER_SERVICE, IAddUserService } from "@/domain/use-cases/add-user-service";
@@ -11,8 +11,8 @@ import { CONFIRMATION_TOKEN_SERVICE, IConfirmationTokenService } from "@/domain/
 export class AddUserController {
 
     constructor(
-        @Adapter(ADD_USER_SERVICE) private readonly addUserService: AddUserServiceImpl,
-        @Adapter(CONFIRMATION_TOKEN_SERVICE) private readonly confirmationTokenServiceImpl: ConfirmationTokenServiceImpl
+        @Inject(ADD_USER_SERVICE) private readonly addUserService: AddUserServiceImpl,
+        @Inject(CONFIRMATION_TOKEN_SERVICE) private readonly confirmationTokenServiceImpl: ConfirmationTokenServiceImpl
     ) {
     }
 

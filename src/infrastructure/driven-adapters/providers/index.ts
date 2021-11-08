@@ -25,66 +25,66 @@ import { SendMail } from "../adapters/send-mail";
 import { SEND_MAIL } from "@/domain/use-cases/helpers/send-mail";
 export const adapters = [
     {
-        classAdapter: BcryptAdapter,
-        key: ENCRYPT
+        useClass: BcryptAdapter,
+        provide: ENCRYPT
     },
     {
-        classAdapter: UserMongooseRepositoryAdapter,
-        key: ADD_USER_REPOSITORY
+        useClass: UserMongooseRepositoryAdapter,
+        provide: ADD_USER_REPOSITORY
     },
     {
-        classAdapter: UserMongooseRepositoryAdapter,
-        key: GET_USERS_REPOSITORY
+        useClass: UserMongooseRepositoryAdapter,
+        provide: GET_USERS_REPOSITORY
     },
     {
-        classAdapter: UserMongooseRepositoryAdapter,
-        key: CHECK_EMAIL_REPOSITORY
+        useClass: UserMongooseRepositoryAdapter,
+        provide: CHECK_EMAIL_REPOSITORY
     },
     {
-        classAdapter: UserMongooseRepositoryAdapter,
-        key: UPDATE_ACCESS_TOKEN_REPOSITORY
+        useClass: UserMongooseRepositoryAdapter,
+        provide: UPDATE_ACCESS_TOKEN_REPOSITORY
     },
     {
-        classAdapter: BcryptAdapter,
-        key: HASH_COMPARE
+        useClass: BcryptAdapter,
+        provide: HASH_COMPARE
     },
     {
-        classAdapter: SendMail,
-        key: SEND_MAIL
+        useClass: SendMail,
+        provide: SEND_MAIL
     },
     {
-        classAdapter: UserMongooseRepositoryAdapter,
-        key: SET_USER_REPOSITORY
+        useClass: UserMongooseRepositoryAdapter,
+        provide: SET_USER_REPOSITORY
     },
     {
-        classAdapter: ConfirmationTokenMongooseRepositoryAdapter,
-        key: ADD_CONFIRMATION_TOKEN_REPOSITORY
+        useClass: ConfirmationTokenMongooseRepositoryAdapter,
+        provide: ADD_CONFIRMATION_TOKEN_REPOSITORY
     }
 ];
 
 export const services = [
     {
-        classAdapter: AddUserServiceImpl,
-        key: ADD_USER_SERVICE
+        useClass: AddUserServiceImpl,
+        provide: ADD_USER_SERVICE
     },
     {
-        classAdapter: GetUsersServiceImpl,
-        key: GET_USERS_SERVICE
+        useClass: GetUsersServiceImpl,
+        provide: GET_USERS_SERVICE
     },
     {
-        classAdapter: AuthenticationServiceImpl,
-        key: AUTHENTICATION_SERVICE
+        useClass: AuthenticationServiceImpl,
+        provide: AUTHENTICATION_SERVICE
     },
     {
-        classAdapter: ComplementalDataServiceImpl,
-        key: COMPLEMENTAL_DATA_SERVICE
+        useClass: ComplementalDataServiceImpl,
+        provide: COMPLEMENTAL_DATA_SERVICE
     },
     {
-        classAdapter: EnableAccountUserServiceImpl,
-        key : ENABLE_ACCOUNT_USER_SERVICE
+        useClass: EnableAccountUserServiceImpl,
+        provide : ENABLE_ACCOUNT_USER_SERVICE
     },
     {
-        classAdapter: ConfirmationTokenServiceImpl,
-        key: CONFIRMATION_TOKEN_SERVICE
+        useClass: ConfirmationTokenServiceImpl,
+        provide: CONFIRMATION_TOKEN_SERVICE
     }
 ];

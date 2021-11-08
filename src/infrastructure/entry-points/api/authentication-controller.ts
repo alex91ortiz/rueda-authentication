@@ -1,4 +1,4 @@
-import {Mapping, Body, Post, Adapter, Get, Param} from "@tsclean/core";
+import {Mapping, Body, Post, Inject, Get, Param} from "@tsclean/core";
 import {AuthenticationServiceImpl} from "@/domain/use-cases/impl/authentication-service-impl";
 import { AUTHENTICATION_SERVICE, IAuthenticationService } from "@/domain/use-cases/authentication-service";
 import { CONFIRMATION_TOKEN_SERVICE, IConfirmationTokenService } from "@/domain/use-cases/confirmation-token-service";
@@ -10,9 +10,9 @@ import { EnableAccountUserServiceImpl } from "@/domain/use-cases/impl/enable-acc
 export class AuthenticationController {
 
     constructor(
-        @Adapter(AUTHENTICATION_SERVICE)private readonly authenticationService: AuthenticationServiceImpl,
-        @Adapter(CONFIRMATION_TOKEN_SERVICE) private readonly confirmationTokenServiceImpl: ConfirmationTokenServiceImpl,
-        @Adapter(ENABLE_ACCOUNT_USER_SERVICE) private readonly enableAccountUserService: EnableAccountUserServiceImpl
+        @Inject(AUTHENTICATION_SERVICE)private readonly authenticationService: AuthenticationServiceImpl,
+        @Inject(CONFIRMATION_TOKEN_SERVICE) private readonly confirmationTokenServiceImpl: ConfirmationTokenServiceImpl,
+        @Inject(ENABLE_ACCOUNT_USER_SERVICE) private readonly enableAccountUserService: EnableAccountUserServiceImpl
     ) {
     }
     
