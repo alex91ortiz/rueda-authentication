@@ -24,7 +24,7 @@ export class AddUserController {
         const account = await this.addUserService.addUser(data);
         if (account === true) return {response: { statusCode: 400, body: { "messages": "Email is already use" } }};
         this.confirmationTokenServiceImpl.addConfirmationToken(data.email);
-        return  {response: { statusCode: 200, body: account }};
+        return  {response: { statusCode: 200, body: account  }};
     }
 
 }
