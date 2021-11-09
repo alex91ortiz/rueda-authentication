@@ -11,20 +11,14 @@ import { TemplateValidationCode } from "../helpers/template-email";
 @Service()
 export class ConfirmationTokenServiceImpl implements IConfirmationTokenService {
     constructor(
-        @Inject(SEND_MAIL) private readonly sendMail : SendMail, 
+        @Inject(SEND_MAIL) private readonly sendMail: SendMail,
         @Inject(CHECK_EMAIL_REPOSITORY) private readonly checkEmailRepository: ICheckEmailRepository,
         @Inject(ADD_CONFIRMATION_TOKEN_REPOSITORY) private readonly iConfirmationTokenRepository: IConfirmationTokenRepository
     ) {
     }
-
-
-    async getConfirmationToken(userId: string): Promise<ConfirmationTokenModel> {
-        //throw new Error("Method not implemented.");
-        return this.iConfirmationTokenRepository.getTokenRepository(userId);
-    }
-    async addConfirmationToken(email: string): Promise<IConfirmationTokenService.Result> {
+    async sendMailConfirmationToken(email: string): Promise<IConfirmationTokenService.Result> {
         const account = await this.checkEmailRepository.checkMail(email);
-        if(!account) return null;
+        if (!account) return null;
         const accessToken = Math.floor(1000 + Math.random() * 9000);
         let templateMail = {
             from: "Rueda",
@@ -34,16 +28,27 @@ export class ConfirmationTokenServiceImpl implements IConfirmationTokenService {
             html: TemplateValidationCode(accessToken)
         };
         const resultmail = await this.sendMail.send(templateMail);
-        if(resultmail.successful){
-            return await this.iConfirmationTokenRepository.addTokenRepository({ userId: account.id.toString(), accessToken: accessToken.toString() });
+        if (resultmail.successful) {
+            return { accessToken: accessToken.toString() };
         }
         return null;
+    }
+
+
+    async getConfirmationToken(userId: string): Promise<ConfirmationTokenModel> {
+        //throw new Error("Method not implemented.");
+        return this.iConfirmationTokenRepository.getTokenRepository(userId);
+    }
+    async addConfirmationToken(data: IConfirmationTokenService.Param): Promise<IConfirmationTokenService.Result> {
+        const account = await this.checkEmailRepository.checkMail(data.email);
+        if (!account) return null;
+        return await this.iConfirmationTokenRepository.addTokenRepository({ userId: account.id.toString(), accessToken: data.accessToken.toString() });
     }
     async checkConfirmationToken(data: IConfirmationTokenService.Param): Promise<ICheckEmailRepository.Result> {
         const userExist = await this.checkEmailRepository.checkMail(data.email);
         if (!userExist) return null;
         const isValid = await this.iConfirmationTokenRepository.checkCodeRepository(userExist.id.toString(), data.accessToken);
-        if (isValid){
+        if (isValid) {
             this.iConfirmationTokenRepository.deleteTokenRepository(isValid.userId.toString());
             return userExist;
         }
