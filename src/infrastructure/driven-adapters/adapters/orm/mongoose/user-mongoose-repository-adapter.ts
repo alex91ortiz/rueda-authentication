@@ -26,7 +26,8 @@ export class UserMongooseRepositoryAdapter implements IAddUserRepository,
         return user && this.map(user);
     };
     async addUser(data: AddUserParams): Promise<UserModel> {
-        return await UserModelSchema.create(data);
+        const user = await UserModelSchema.create(data);
+        return this.map(user);
     };
 
     async updateToken(id: string | number, token: string): Promise<void> {
