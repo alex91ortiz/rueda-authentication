@@ -1,9 +1,9 @@
-import {Inject, InjectableDecorator} from "@tsclean/core";
+import {Inject, Service} from "@tsclean/core";
 import {IEnableAccountUserService} from "@/domain/use-cases/enable-account-user-service";
 import { ISetUserRepository, SET_USER_REPOSITORY } from "@/domain/models/gateways/set-user-repository";
 import { GET_USERS_REPOSITORY, IGetUsersRepository } from "@/domain/models/gateways/get-users-repository";
 
-@InjectableDecorator()
+@Service()
 export class EnableAccountUserServiceImpl implements IEnableAccountUserService {
     constructor(
         @Inject(GET_USERS_REPOSITORY) private readonly getUserRepository : IGetUsersRepository,

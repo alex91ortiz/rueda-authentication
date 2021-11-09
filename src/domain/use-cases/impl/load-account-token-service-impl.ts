@@ -1,4 +1,4 @@
-import {Inject, InjectableDecorator} from "@tsclean/core";
+import {Inject, Service} from "@tsclean/core";
 import {ILoadAccountTokenService} from "@/domain/use-cases/load-account-token-service";
 import {
     ILoadAccountTokenRepository,
@@ -6,7 +6,7 @@ import {
 } from "@/domain/models/gateways/load-account-token-repository";
 import {DECRYPT, IDecrypt} from "@/domain/use-cases/helpers/decrypt";
 
-@InjectableDecorator()
+@Service()
 export class LoadAccountTokenServiceImpl implements ILoadAccountTokenService {
 
     constructor(

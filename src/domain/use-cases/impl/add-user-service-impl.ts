@@ -1,11 +1,11 @@
-import { Inject, InjectableDecorator} from "@tsclean/core";
+import { Inject, Service} from "@tsclean/core";
 import {IAddUserService} from "@/domain/use-cases/add-user-service";
 import { AddUserParams } from "@/domain/models/user";
 import { ADD_USER_REPOSITORY, IAddUserRepository } from "@/domain/models/gateways/add-user-repository";
 import { CHECK_EMAIL_REPOSITORY, ICheckEmailRepository } from "@/domain/models/gateways/check-email-repository";
 import {ENCRYPT, IEncrypt} from "@/domain/use-cases/helpers/encrypt";
 
-@InjectableDecorator()
+@Service()
 export class AddUserServiceImpl implements IAddUserService {
     constructor(
         @Inject(ENCRYPT) private readonly encrypt : IEncrypt,

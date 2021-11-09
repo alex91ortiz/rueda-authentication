@@ -1,9 +1,9 @@
-import { Inject, InjectableDecorator} from "@tsclean/core";
+import { Inject, Service} from "@tsclean/core";
 import {IComplementalDataService} from "@/domain/use-cases/complemental-data-service";
 import { AddUserParams } from "@/domain/models/user";
 import { ISetUserRepository, SET_USER_REPOSITORY } from "@/domain/models/gateways/set-user-repository";
 
-@InjectableDecorator()
+@Service()
 export class ComplementalDataServiceImpl implements IComplementalDataService {
     constructor(
         @Inject(SET_USER_REPOSITORY) private readonly setUserRepository : ISetUserRepository

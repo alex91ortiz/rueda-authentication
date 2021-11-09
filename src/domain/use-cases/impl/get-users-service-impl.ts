@@ -1,9 +1,9 @@
-import { Inject, InjectableDecorator} from "@tsclean/core";
+import { Inject, Service} from "@tsclean/core";
 import {IGetUsersService} from "@/domain/use-cases/get-users-service";
 import {UserModel} from "@/domain/models/user";
 import {GET_USERS_REPOSITORY, IGetUsersRepository} from "@/domain/models/gateways/get-users-repository";
 
-@InjectableDecorator()
+@Service()
 export class GetUsersServiceImpl implements IGetUsersService {
     constructor(
         @Inject(GET_USERS_REPOSITORY)

@@ -1,4 +1,4 @@
-import { Inject, InjectableDecorator } from "@tsclean/core";
+import { Inject, Service } from "@tsclean/core";
 import { ENCRYPT, IEncrypt } from "@/domain/use-cases/helpers/encrypt";
 import { IConfirmationTokenService } from "@/domain/use-cases/confirmation-token-service";
 import { ConfirmationTokenModel } from "@/domain/models/confirmation-token";
@@ -8,7 +8,7 @@ import { SEND_MAIL } from "../helpers/send-mail";
 import { SendMail } from "@/infrastructure/driven-adapters/adapters/send-mail";
 import { TemplateValidationCode } from "../helpers/template-email";
 
-@InjectableDecorator()
+@Service()
 export class ConfirmationTokenServiceImpl implements IConfirmationTokenService {
     constructor(
         @Inject(SEND_MAIL) private readonly sendMail : SendMail, 
