@@ -33,8 +33,11 @@ export class ConfirmationTokenServiceImpl implements IConfirmationTokenService {
             text: "Texto desde confirmacion de nuevo usuario",
             html: TemplateValidationCode(accessToken)
         };
-        this.sendMail.send(templateMail);
-        return this.iConfirmationTokenRepository.addTokenRepository({ userId: account.id.toString(), accessToken: accessToken.toString() });
+        const resultmail = await this.sendMail.send(templateMail);
+        if(resultmail.successful){
+            return await this.iConfirmationTokenRepository.addTokenRepository({ userId: account.id.toString(), accessToken: accessToken.toString() });
+        }
+        return null;
     }
     async checkConfirmationToken(data: IConfirmationTokenService.Param): Promise<ICheckEmailRepository.Result> {
         const userExist = await this.checkEmailRepository.checkMail(data.email);

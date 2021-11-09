@@ -4,6 +4,7 @@ export const ADD_USER_SERVICE = "ADD_USER_SERVICE";
 
 export interface IAddUserService {
     addUser: (data: AddUserParams) => Promise<IAddUserService.Result | IAddUserService.Exist>;
+    checkMailUser: (email: string) => Promise<boolean>;
 }
 
 export namespace IAddUserService {

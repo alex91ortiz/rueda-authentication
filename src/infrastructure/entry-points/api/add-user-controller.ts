@@ -18,13 +18,17 @@ export class AddUserController {
 
     @Post()
     async addUserController(@Body() data: AddUserParams): Promise<any | IAddUserService.Exist> {
-        const { errors, isValid } = ValidateFields.fieldsValidation(data);
-        if (!isValid) return {response: { statusCode: 422, body: { messages: errors } } };
+        //const { errors, isValid } = ValidateFields.fieldsValidation(data);
+        //if (!isValid) return {response: { statusCode: 422, body: { messages: errors } } };
         data.enable = false;
         const account = await this.addUserService.addUser(data);
-        if (account === true) return {response: { statusCode: 400, body: { "messages": "Email is already use" } }};
-        this.confirmationTokenServiceImpl.addConfirmationToken(data.email);
+        if (account === true) return {response: { statusCode: 400, body: account }};
         return  {response: { statusCode: 200, body: account  }};
+    }
+
+    @Get("checkmail/:email")
+    async checkMailUserController(@Param("email") email: string): Promise<boolean> {
+        return await this.addUserService.checkMailUser(email);
     }
 
 }

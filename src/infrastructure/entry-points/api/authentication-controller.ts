@@ -26,10 +26,4 @@ export class AuthenticationController {
         }
     }
 
-    @Post("reset-password")
-    async resetPassword(@Body() data: IConfirmationTokenService.Param){
-        const confirmation = await this.confirmationTokenServiceImpl.addConfirmationToken(data.email);
-    }
-
-
 }

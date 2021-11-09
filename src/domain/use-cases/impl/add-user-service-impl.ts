@@ -13,10 +13,14 @@ export class AddUserServiceImpl implements IAddUserService {
         @Inject(ADD_USER_REPOSITORY) private readonly addUserRepository : IAddUserRepository
     ) {}
     async addUser(data: AddUserParams) : Promise<IAddUserService.Result | IAddUserService.Exist>{
-        const userExist = await this.checkEmailRepository.checkMail(data.email);
-        if (userExist) return true;
         const encryptPassword = await this.encrypt.encrypt(data.password);
         const user = await this.addUserRepository.addUser({...data, password: encryptPassword, accessToken: ""});
         if (user) return user;
     };
+
+    async checkMailUser(email: string) : Promise<boolean>{
+        const userExist = await this.checkEmailRepository.checkMail(email);
+        if (userExist) return true;
+        return false;
+    }
 }
