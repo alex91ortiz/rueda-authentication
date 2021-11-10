@@ -1,5 +1,5 @@
-import {Mapping, Body, Post, Inject, Get, Param} from "@tsclean/core";
-import {AuthenticationServiceImpl} from "@/domain/use-cases/impl/authentication-service-impl";
+import { Mapping, Body, Post, Inject, Get, Param } from "@tsclean/core";
+import { AuthenticationServiceImpl } from "@/domain/use-cases/impl/authentication-service-impl";
 import { AUTHENTICATION_SERVICE, IAuthenticationService } from "@/domain/use-cases/authentication-service";
 import { CONFIRMATION_TOKEN_SERVICE, IConfirmationTokenService } from "@/domain/use-cases/confirmation-token-service";
 import { ConfirmationTokenServiceImpl } from "@/domain/use-cases/impl/confirmation-token-service-impl";
@@ -10,24 +10,27 @@ import { EnableAccountUserServiceImpl } from "@/domain/use-cases/impl/enable-acc
 export class AuthenticationController {
 
     constructor(
-        @Inject(AUTHENTICATION_SERVICE)private readonly authenticationService: AuthenticationServiceImpl,
+        @Inject(AUTHENTICATION_SERVICE) private readonly authenticationService: AuthenticationServiceImpl,
         @Inject(CONFIRMATION_TOKEN_SERVICE) private readonly confirmationTokenServiceImpl: ConfirmationTokenServiceImpl,
         @Inject(ENABLE_ACCOUNT_USER_SERVICE) private readonly enableAccountUserService: EnableAccountUserServiceImpl
     ) {
     }
-    
+
 
     @Post()
     async authController(@Body() data: IAuthenticationService.Params): Promise<IAuthenticationService.Result> {
         const result = await this.authenticationService.auth(data);
-        return {
-            accessToken: result.accessToken,
-            name: result.name
+        if (result) {
+            return {
+                accessToken: result.accessToken,
+                name: result.name
+            }
         }
+        return null;
     }
 
     @Post("reset-password")
-    async resetPassword(@Body() data: IConfirmationTokenService.Param){
+    async resetPassword(@Body() data: IConfirmationTokenService.Param) {
         const confirmation = await this.confirmationTokenServiceImpl.addConfirmationToken(data.email);
     }
 

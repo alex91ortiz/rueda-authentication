@@ -15,7 +15,7 @@ export class AuthenticationServiceImpl implements IAuthenticationService {
     ) { }
     async auth(data: IAuthenticationService.Params): Promise<IAuthenticationService.Result> {
         const account = await this.checkEmailRepository.checkMail(data.email);
-        if (account.enable && !account.locked) {
+        if (account.enable) {
             const isValid = await this.hashCompare.compare(data.password, account.password);
             if (isValid) {
                 const accessToken = await this.encrypt.encrypt(account.id);
