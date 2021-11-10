@@ -1,4 +1,4 @@
-import { Mapping, Get, Post, Body, Inject, Param } from "@tsclean/core";
+import { Mapping, Get, Post, Body, Inject, Param, Put } from "@tsclean/core";
 import { AddUserServiceImpl } from "@/domain/use-cases/impl/add-user-service-impl";
 import { AddUserParams } from "@/domain/models/user";
 import { ADD_USER_SERVICE, IAddUserService } from "@/domain/use-cases/add-user-service";
@@ -30,6 +30,11 @@ export class AddUserController {
     @Get("checkmail/:email")
     async checkMailUserController(@Param("email") email: string): Promise<boolean> {
         return await this.addUserService.checkMailUser(email);
+    }
+
+    @Post("/change-password")
+    async changePasswordController(@Body() data: IAddUserService.Params): Promise<boolean> {
+        return await this.addUserService.changePassword(data);
     }
 
 }

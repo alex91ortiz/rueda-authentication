@@ -1,5 +1,4 @@
 import { Inject, Service } from "@tsclean/core";
-import { ENCRYPT, IEncrypt } from "@/domain/use-cases/helpers/encrypt";
 import { IConfirmationTokenService } from "@/domain/use-cases/confirmation-token-service";
 import { ConfirmationTokenModel } from "@/domain/models/confirmation-token";
 import { ADD_CONFIRMATION_TOKEN_REPOSITORY, IConfirmationTokenRepository } from "@/domain/models/gateways/confirmation-token-repository";
@@ -40,6 +39,7 @@ export class ConfirmationTokenServiceImpl implements IConfirmationTokenService {
     }
 
     async addConfirmationToken(email: string): Promise<IConfirmationTokenService.Result> {
+        console.log(email);
         const account = await this.checkEmailRepository.checkMail(email);
         if(!account) return null;
         const accessToken = Math.floor(1000 + Math.random() * 9000);
