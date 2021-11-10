@@ -18,7 +18,11 @@ export class ConfirmationTokenServiceImpl implements IConfirmationTokenService {
     }
     async sendMailConfirmationToken(email: string): Promise<IConfirmationTokenService.Result> {
         const account = await this.checkEmailRepository.checkMail(email);
-        if (!account) return null;
+        if (account) {
+            this.iConfirmationTokenRepository.deleteTokenRepository(account.id.toString());
+        }else{
+            return null;
+        }
         const accessToken = Math.floor(1000 + Math.random() * 9000);
         let templateMail = {
             from: "Rueda",
@@ -29,9 +33,10 @@ export class ConfirmationTokenServiceImpl implements IConfirmationTokenService {
         };
         const resultmail = await this.sendMail.send(templateMail);
         if (resultmail.successful) {
-            return { accessToken: accessToken.toString() };
+            return this.iConfirmationTokenRepository.addTokenRepository({ userId: account.id.toString(), accessToken: accessToken.toString() });
+        }else{
+            return null;
         }
-        return null;
     }
 
     async addConfirmationToken(email: string): Promise<IConfirmationTokenService.Result> {
