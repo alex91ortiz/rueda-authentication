@@ -18,11 +18,12 @@ export class AddUserController {
 
     @Post()
     async addUserController(@Body() data: AddUserParams): Promise<any | IAddUserService.Exist> {
-        //const { errors, isValid } = ValidateFields.fieldsValidation(data);
-        //if (!isValid) return {response: { statusCode: 422, body: { messages: errors } } };
+        const { errors, isValid } = ValidateFields.fieldsValidation(data);
+        if (!isValid) return {response: { statusCode: 400, body: { messages: errors } } };
         data.enable = false;
         const account = await this.addUserService.addUser(data);
-        if (account === true) return {response: { statusCode: 400, body: account }};
+        if (account === true) return {response: { statusCode: 404, body: account }};
+        this.confirmationTokenServiceImpl.addConfirmationToken(data.email);
         return  {response: { statusCode: 200, body: account  }};
     }
 

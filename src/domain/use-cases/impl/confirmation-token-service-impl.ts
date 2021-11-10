@@ -34,16 +34,27 @@ export class ConfirmationTokenServiceImpl implements IConfirmationTokenService {
         return null;
     }
 
+    async addConfirmationToken(email: string): Promise<IConfirmationTokenService.Result> {
+        const account = await this.checkEmailRepository.checkMail(email);
+        if(!account) return null;
+        const accessToken = Math.floor(1000 + Math.random() * 9000);
+        let templateMail = {
+            from: "Rueda",
+            to: email,
+            subject: "Código de verificación de Rueda",
+            text: "Texto desde confirmacion de nuevo usuario",
+            html: TemplateValidationCode(accessToken)
+        };
+        this.sendMail.send(templateMail);
+        return this.iConfirmationTokenRepository.addTokenRepository({ userId: account.id.toString(), accessToken: accessToken.toString() });
+    }
+
 
     async getConfirmationToken(userId: string): Promise<ConfirmationTokenModel> {
         //throw new Error("Method not implemented.");
         return this.iConfirmationTokenRepository.getTokenRepository(userId);
     }
-    async addConfirmationToken(data: IConfirmationTokenService.Param): Promise<IConfirmationTokenService.Result> {
-        const account = await this.checkEmailRepository.checkMail(data.email);
-        if (!account) return null;
-        return await this.iConfirmationTokenRepository.addTokenRepository({ userId: account.id.toString(), accessToken: data.accessToken.toString() });
-    }
+
     async checkConfirmationToken(data: IConfirmationTokenService.Param): Promise<ICheckEmailRepository.Result> {
         const userExist = await this.checkEmailRepository.checkMail(data.email);
         if (!userExist) return null;

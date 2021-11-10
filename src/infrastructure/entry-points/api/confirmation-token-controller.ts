@@ -17,7 +17,7 @@ export class ConfirmationTokenController {
     }
 
     @Post()
-    async addConfirmationTokenController(@Body() data: IConfirmationTokenService.Param){
-        return await this.confirmationTokenServiceImpl.addConfirmationToken(data);
+    async addConfirmationTokenController(@Param() data: IConfirmationTokenService.Param){
+        return await this.confirmationTokenServiceImpl.addConfirmationToken(data.email);
     }
 }
