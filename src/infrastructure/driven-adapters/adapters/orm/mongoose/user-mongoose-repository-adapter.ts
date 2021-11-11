@@ -78,7 +78,7 @@ export class UserMongooseRepositoryAdapter implements IAddUserRepository,
 
 
     async getUserByIdRepository(userId: string): Promise<UserModel>{
-        return await UserModelSchema.findOne({_id: userId}).exec();
+        return await UserModelSchema.findById(userId).exec();
     }
 
     async getUserByAccessTokenRepository(token: string): Promise<UserModel>{

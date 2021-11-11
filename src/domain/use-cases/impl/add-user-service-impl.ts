@@ -31,9 +31,11 @@ export class AddUserServiceImpl implements IAddUserService {
 
     async changePassword(data: IAddUserService.Params) : Promise<boolean>{
         const userFound = await this.getUserRepository.getUserByIdRepository(data.id);
+        console.log(data,userFound);
         if (!userFound) return false;
         const encryptPassword = await this.encrypt.encrypt(data.password);
-        await this.setUserRepository.updateUser(data.id, {...userFound, password: encryptPassword});
+        userFound.password = encryptPassword;
+        await this.setUserRepository.updateUser(data.id, userFound);
         return true;
     };
 }
