@@ -59,7 +59,7 @@ export class UserMongooseRepositoryAdapter implements IAddUserRepository,
         if(data.information) objectFilter["information"]=data.information;
         if(data.emergency) objectFilter["emergency"]=data.emergency;
         if(data.health) objectFilter["health"]=data.health;
-
+        if(data.locked) objectFilter["locked"]=data.locked;
         await UserModelSchema.findOneAndUpdate({ _id: id },
             objectFilter
         ,{

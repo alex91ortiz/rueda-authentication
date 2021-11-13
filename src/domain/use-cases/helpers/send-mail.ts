@@ -8,7 +8,8 @@ export namespace IsendMail {
     
     export type Result = {
         error: string;
-        successful: boolean
+        successful: boolean;
+        accessToken: number;
     }
 
     export type Params = {

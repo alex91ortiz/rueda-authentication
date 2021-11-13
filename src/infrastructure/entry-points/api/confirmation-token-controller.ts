@@ -18,6 +18,8 @@ export class ConfirmationTokenController {
 
     @Post()
     async addConfirmationTokenController(@Param() data: IConfirmationTokenService.Param){
-        return await this.confirmationTokenServiceImpl.addConfirmationToken(data.email);
+        const validationMail = await this.confirmationTokenServiceImpl.validationMail(data.email);
+        if (!validationMail.successful) return {response: { statusCode: 500, body: "correo no valido" }};
+        return await this.confirmationTokenServiceImpl.addConfirmationToken(data.email, validationMail.accessToken);
     }
 }

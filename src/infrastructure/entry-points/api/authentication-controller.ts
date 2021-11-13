@@ -31,7 +31,9 @@ export class AuthenticationController {
 
     @Post("reset-password")
     async resetPassword(@Body() data: IConfirmationTokenService.Param) {
-        const confirmation = await this.confirmationTokenServiceImpl.addConfirmationToken(data.email);
+        const validationMail = await this.confirmationTokenServiceImpl.validationMail(data.email);
+        if (!validationMail.successful) return {response: { statusCode: 500, body: "correo no valido" }};
+        const confirmation = await this.confirmationTokenServiceImpl.addConfirmationToken(data.email, validationMail.accessToken);
     }
 
 

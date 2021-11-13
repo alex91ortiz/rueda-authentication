@@ -18,9 +18,9 @@ export class SendMail implements ISendMail {
         let response = await transporter.sendMail(data);
         console.log("Message sent: %s", response.messageId);
         if(response.accepted){
-            return { error: response.accepted.join(":"), successful: true };
+            return { error: response.accepted.join(":"), successful: true ,accessToken: null };
         }else{
-            return { error: response.rejected.join(":"), successful: false };
+            return { error: response.rejected.join(":"), successful: false ,accessToken: null};
         }
     }
 
