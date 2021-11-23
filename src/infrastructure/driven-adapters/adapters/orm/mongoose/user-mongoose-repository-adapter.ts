@@ -53,15 +53,9 @@ export class UserMongooseRepositoryAdapter implements IAddUserRepository,
         return UserModelSchema.find();
     }
 
-    async addComplementalDataUser(id: string | number, data: AddUserParams): Promise<void> {
-        let objectFilter = {};
-        
-        if(data.information) objectFilter["information"]=data.information;
-        if(data.emergency) objectFilter["emergency"]=data.emergency;
-        if(data.health) objectFilter["health"]=data.health;
-        if(data.locked) objectFilter["locked"]=data.locked;
+    async addComplementalDataUser(id: string | number, data: AddUserParams): Promise<void> {        
         await UserModelSchema.findOneAndUpdate({ _id: id },
-            objectFilter
+            data
         ,{
             upsert : true
         });
