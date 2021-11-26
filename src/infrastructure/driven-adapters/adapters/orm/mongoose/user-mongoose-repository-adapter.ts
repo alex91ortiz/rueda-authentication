@@ -69,8 +69,7 @@ export class UserMongooseRepositoryAdapter implements IAddUserRepository,
             upsert : true
         });
     }
-
-
+    
     async getUserByIdRepository(userId: string): Promise<UserModel>{
         return await UserModelSchema.findById(userId).exec();
     }
