@@ -4,6 +4,7 @@ import { GetUsersController } from "@/infrastructure/entry-points/api/get-users-
 import { ComplementalDataController } from "@/infrastructure/entry-points/api/complemental-data-controller";
 import { EnableAccountUserController } from "@/infrastructure/entry-points/api/enable-account-user-controller";
 import { ConfirmationTokenController } from "./confirmation-token-controller";
+import { FileManagerController } from "./file-manager-controller";
 
 export const controllers = [
     AddUserController,
@@ -11,5 +12,6 @@ export const controllers = [
     AuthenticationController,
     ComplementalDataController,
     EnableAccountUserController,
-    ConfirmationTokenController
+    ConfirmationTokenController,
+    FileManagerController
 ];

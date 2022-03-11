@@ -23,6 +23,8 @@ import { EnableAccountUserServiceImpl } from "@/domain/use-cases/impl/enable-acc
 import { ENABLE_ACCOUNT_USER_SERVICE } from "@/domain/use-cases/enable-account-user-service";
 import { SendMail } from "../adapters/send-mail";
 import { SEND_MAIL } from "@/domain/use-cases/helpers/send-mail";
+import { FileManagerServiceImpl } from "@/domain/use-cases/impl/file-manager-service-impl";
+import { FILE_MANAGE_SERVICE } from "@/domain/use-cases/file-manager-service";
 export const adapters = [
     {
         useClass: BcryptAdapter,
@@ -86,5 +88,9 @@ export const services = [
     {
         useClass: ConfirmationTokenServiceImpl,
         provide: CONFIRMATION_TOKEN_SERVICE
+    },
+    {
+        useClass: FileManagerServiceImpl,
+        provide: FILE_MANAGE_SERVICE
     }
 ];

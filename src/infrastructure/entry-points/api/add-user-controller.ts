@@ -21,7 +21,7 @@ export class AddUserController {
         const { errors, isValid } = ValidateFields.fieldsValidation(data);
         if (!isValid) return {response: { statusCode: 400, body: { messages: errors } } };
         data.enable = false;
-        data.locked = false;
+        data.locked = true;
         const validationMail = await this.confirmationTokenServiceImpl.validationMail(data.email);
         if (!validationMail.successful) return {response: { statusCode: 500, body: "correo no valido" }};
         const account = await this.addUserService.addUser(data);
