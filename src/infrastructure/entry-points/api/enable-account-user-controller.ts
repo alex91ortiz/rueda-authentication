@@ -17,7 +17,7 @@ export class EnableAccountUserController {
     async confirmCodeAndEnableUser(@Body() data: IConfirmationTokenService.Param): Promise<any> {
         const userValid = await this.confirmationTokenService.checkConfirmationToken(data);
         if (userValid){
-            await this.enableAccountUserService.changeStatusAccount(userValid.id.toString(), true,false);
+            await this.enableAccountUserService.changeStatusAccount(userValid.id.toString(), true,true);
             return {error: 200, successful: true};
         }
         return {error: 404, successful: false};
